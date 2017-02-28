@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="org.json.simple.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -20,48 +20,163 @@
 <body>
 
 <div class="container">
+<button type="button" class="btn btn-link" onclick="window.location = 'index.html';">Home</button>
+<h1>Example Image Recognition Page</h1>
+
+</div>
+
+<div class="container">
       <div class="panel panel-default">
-        <div class="panel-heading"><strong>Upload Files</strong> <small>Bootstrap files upload</small></div>
+        <div class="panel-heading"><strong>Upload File</strong> <small>Select an image file (.jpg or .png) to upload and analyze.</small></div>
         <div class="panel-body">
 
-          <!-- Standar Form -->
           <h4>Select files from your computer</h4>
           <form action="eval" method="post" enctype="multipart/form-data" id="js-upload-form">
             <div class="form-inline">
               <div class="form-group">
                 <input type="file" name="image_file" id="js-upload-files">
               </div>
-              <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
+              <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Analyze image</button>
             </div>
           </form>
 
-          <!-- Drop Zone -->
-          <h4>Or drag and drop files below</h4>
-          <div class="upload-drop-zone" id="drop-zone">
-            Just drag and drop files here
-          </div>
-
-          <!-- 
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-              <span class="sr-only">60% Complete</span>
-            </div>
-          </div>
-			Progress Bar -->
-          <!-- 
-          <div class="js-upload-finished">
-            <h3>Processed files</h3>
-            <div class="list-group">
-              <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>image-01.jpg</a>
-              <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">Success</span>image-02.jpg</a>
-            </div>
-          </div>
-          Upload Finished -->
         </div>
       </div>
     </div> <!-- /container -->
     
     
+    <div class="container">
+    <div class="row">
+ 
+    
+    <% JSONObject results = (JSONObject) request.getAttribute("results");
+    	if( results != null ) {
+			JSONArray classifiers = (JSONArray) results.get("classifiers");
+    		
+    %>		
+    <!--  classifiers -->
+    <%
+    		if( classifiers != null && classifiers.size()>0 ){
+		    	for( int c=0; c< classifiers.size(); c++ ) {
+		    		JSONObject classifier = (JSONObject) classifiers.get(c);
+		    		String classifierId = (String) classifier.get("classifier_id");
+		    		JSONArray values = (JSONArray) classifier.get("classes");
+    %>
+					<div class="col-md-4">
+					<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Classifier: <strong><%=classifierId %></strong></h3>
+					</div>
+				  	<div class="panel-body">
+				    		 <table class="table">
+						    <thead>
+						      <tr>
+						        <th class="col-xs-2">Class</th>
+						        <th class="col-xs-2">Score</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+				    		<%	for( int i=0;i<values.size(); i++ ) {
+				    			JSONObject value = (JSONObject) values.get(i);
+				    		%>
+				    			<tr>
+					    			<td><%= value.get("class") %></td>
+					    			<td><%= value.get("score") %></td>
+				    			</tr>
+				    		<%  } %>
+				    		</tbody>
+				    		</table>
+				        </div>
+					</div>
+					</div>
+    	
+			<% } } // classifiers %>
+			
+		<!-- faces -->
+		<% // still within the results if
+		JSONArray faces = (JSONArray) results.get("faces");
+		if( faces != null && faces.size()>0 ){
+    	for( int f=0; f<faces.size(); f++ ) {
+    		JSONObject face = (JSONObject) faces.get(f);
+		    JSONObject loc = (JSONObject) face.get("face_location"); 
+		    if( loc != null ) {
+		    	long top = (long) loc.get("top");
+		    	long left = (long) loc.get("left");
+		    	long width = (long) loc.get("width");
+		    	long height = (long) loc.get("height");
+		    	String location = "(" + left + ", " + top + ", " + width + ", " + height + ")";
+	    %>
+	   		<div class="col-md-4">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+							<h3 class="panel-title">Face <%=f %> <%= location %></h3>
+				</div>
+			  	<div class="panel-body">
+		    		
+		    		<table class="table">
+				    <thead>
+				      <tr>
+				        <th class="col-xs-2">Property</th>
+				        <th class="col-xs-2">Value</th>
+				        <th class="col-xs-2">Score</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+		    		
+		    		<% 
+				    JSONObject obj = (JSONObject) face.get("gender"); 
+		    		if( obj != null ) {
+					    String value = (String) obj.get("gender");
+					    double score = (double) obj.get("score");
+				    %>
+				    	<tr>
+				    		<td>Gender</td>
+				    		<td><%= value %></td>
+				    		<td><%= score %></td>
+				    	</tr>
+				    <% } // gender %>
+		    		
+		    		<% 
+				    obj = (JSONObject) face.get("age"); 
+		    		if( obj != null ) {
+		    			long min = (long) obj.get("min");
+		    			long max = (long) obj.get("max");
+					    String age = min + " - " + max;
+					    double score = (double) obj.get("score");
+				    %>
+				    	<tr>
+				    		<td>Age</td>
+				    		<td><%= age %></td>
+				    		<td><%= score %></td>
+				    	</tr>
+				    <% } // age %>
+		    		
+		 			<% 
+				    obj = (JSONObject) face.get("identity"); 
+		    		if( obj != null ) {
+					    String name = (String) obj.get("name");
+					    double score = (double) obj.get("score");
+				    %>
+				    	<tr>
+				    		<td>Identity</td>
+				    		<td><%= name %></td>
+				    		<td><%= score %></td>
+				    	</tr>
+				    <% } // identity %>
+		    		</tbody>
+		    		</table>
+		        </div>
+			</div>
+			</div>
+    	
+    
+    	<% } } } // faces	%>
+		
+		
+    <% } // results %>
+    
+    </div>
+    </div>
 	<!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
