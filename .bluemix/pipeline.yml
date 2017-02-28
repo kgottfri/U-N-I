@@ -26,7 +26,7 @@ stages:
       application: ${CF_APP}
     script: |-
       #!/bin/bash
-      cf create-service cleardb spark "ClearDB-ph"
-      cf create-service weatherinsights Free-v2 "Weather Company Data-ph"
+      cf create-service compose-for-mysql Standard "Compose for MySQL-java"
+      cf create-service watson_vision_combined free "Visual Recognition-java"
       cf push "${CF_APP}" --random-route
 
