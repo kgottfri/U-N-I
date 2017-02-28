@@ -4,6 +4,5 @@ applications:
   instances: 1
   domain: mybluemix.net
   name: Java-MySQL-Hackathon-Example
-  host: Java-MySQL-Hackathon-Example
   disk_quota: 1024M
   buildpack: java_buildpack
