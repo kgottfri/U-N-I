@@ -28,5 +28,4 @@ stages:
       #!/bin/bash
       cf create-service compose-for-mysql Standard "Compose for MySQL-java"
       cf create-service watson_vision_combined free "Visual Recognition-java"
-      cf push "${CF_APP}" --random-route
-
+      cf push  --random-route "${CF_APP}"
