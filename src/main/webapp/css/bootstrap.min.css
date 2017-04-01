@@ -65,7 +65,9 @@ li a:hover {
 }
 
 
-
+h1 {
+	padding: 7px;
+}
 img {
 	display: block;
     width: 80%;
@@ -75,6 +77,15 @@ img {
     margin-bottom: auto;
     height: auto;
     padding-top: 65px;
+}
+
+.accountInfo {
+	text-align: left;
+	margin: auto;
+    width: 70%;
+    border: 3px;
+    padding: 10px;
+    border-radius: 3px;
 }
 
 /* >>>>>>> branch 'master' of https://github.com/danielberenberg/U-N-I.git */
