@@ -13,7 +13,7 @@
 <p id="demo"></p>
 <p id = "demo2"></p>
 <form name="location" method="post" action="geoloc">
-	longitude: <input name = "longitude" value=""/> <br/>
+	longitude: <input id = "longitude" type = "text" name = "longitude" value=""/> <br/>
 	latitude: <input type = "text" name = "latitude" value=""/> <br/>
 	<input type = "submit" value = "go"/>
 </form>
@@ -29,7 +29,7 @@ function getLocation() {
 }
 
 function showPosition(position) {
-	document.forms[0].longitude.value = position.coords.longitude;
+	documet.getElementById("longitude").value = position.coords.longitude;
 /* 	
     x.innerHTML = "Latitude: " + position.coords.latitude + 
     "<br>Longitude: " + position.coords.longitude; */
