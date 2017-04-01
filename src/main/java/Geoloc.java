@@ -40,7 +40,12 @@ public class Geoloc extends HttpServlet {
 	
 	private static final BigDecimal SQRT_DIG = new BigDecimal(150);
 	private static final BigDecimal SQRT_PRE = new BigDecimal(10).pow(SQRT_DIG.intValue());
-
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
