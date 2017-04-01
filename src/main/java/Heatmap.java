@@ -191,6 +191,9 @@ public class Heatmap extends HttpServlet {
 	
 	public void addText(BufferedImage image,int xCord,int yCord,String text)
 	{
+		if(text.equals("Muddy Waters"))
+			yCord+=75;
+		
 		Graphics2D g = image.createGraphics();
 		
 		int width = g.getFontMetrics(font).stringWidth(text);
