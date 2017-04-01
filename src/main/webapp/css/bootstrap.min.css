@@ -78,7 +78,6 @@ select {
    height: 34px;
    }
 
-<<<<<<< HEAD
 li a:hover:not(.active) {
     background-color: #111;
 }
@@ -113,3 +112,32 @@ img {
     padding: 10px;
     border-radius: 3px;
 }
+#rcorners2 {
+	margin-left:auto;
+	margin-right:auto;
+    border-radius: 25px;
+    background: #ffffff;
+    border: 1px solid #f2f2f2;
+    padding: 10px; 
+    width: 700px;
+    height: 100px;    
+}
+.images{
+	margin:0px;
+	padding: 0px;
+}
+#content{
+	margin-left: 300px;	
+	padding: 0px;
+	top: 10px;
+	margin-top:75px;
+	height: 10%;
+	width: 10%;
+}
+#list1{
+	list-style-type:none;
+	display:inline-block;
+	float:left;
+}
+
+
