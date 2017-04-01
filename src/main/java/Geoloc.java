@@ -22,9 +22,9 @@ public class Geoloc extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
         response.setContentType("text/html");
-        //response.getWriter().print("Lat = " + request.getParameter("latitude"));
-        //response.getWriter().print("Long = " + request.getParameter("longitude"));
-        File file = new File("/Users/adambarson/Desktop/Codefest/test.txt");
+        response.getWriter().print("Lat = " + request.getParameter("latitude"));
+        response.getWriter().print("Long = " + request.getParameter("longitude"));
+        File file = new File("test.txt");
         FileWriter writer = new FileWriter(file);
         PrintWriter w = new PrintWriter(writer);
         
