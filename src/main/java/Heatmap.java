@@ -63,8 +63,7 @@ public class Heatmap extends HttpServlet {
 	
 	public LinkedList<Location> getLocations()
 	{
-		String databaseURL = "";
-		String dbName = "";
+		String dbName = "WLIPPOLI_codefest";
 		
 		LinkedList<Location> locs = new LinkedList<Location>();
 		
@@ -74,7 +73,7 @@ public class Heatmap extends HttpServlet {
 		
 		try 
 		{
-			database = DriverManager.getConnection(databaseURL);
+			database = getDataSource().getConnection();
 			stmt = database.createStatement();
 			ResultSet results = stmt.executeQuery(query);
 			while(results.next())
