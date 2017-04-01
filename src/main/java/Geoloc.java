@@ -42,7 +42,7 @@ public class Geoloc extends HttpServlet {
         
         userLat = Double.parseDouble(request.getParameter("latitude"));
         userLong = Double.parseDouble(request.getParameter("longitude"));
-        if (inRange(WATERMAN, response)){
+        if (inRange(DAVIS_CENTER, response)){
         	response.getWriter().print("You're at waterman!   ");
         }
         else{
@@ -55,6 +55,8 @@ public class Geoloc extends HttpServlet {
         w.write("hey");
         
 	}
+	
+	
 	
 	public boolean inRange(double [] location, HttpServletResponse response) throws IOException{
 		double lat_dif = location[0] - userLat;
