@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<body>
+<body onload="setLocation()">
 <title>Form</title>
    
 
@@ -22,6 +22,7 @@
 	<div class = "form">
 
 		<select name = "location">
+			<option id = "Waterman" value = "Waterman">Waterman</option>
 			<option value = "Library">Library</option>
 			<option value = "Muddy Waters">Muddy Waters</option>
 			<option value = "Fish Bowl">Fish Bowl</option>
@@ -43,4 +44,15 @@
 
 
 </body>
+<script type="text/javascript" src="geolocation.js">
+	
+	function setLocation(){
+		 getLocation();
+		 if(position.coords.longitude == -73.201157 && position.coords.latitude == 44.478283){
+			 var element = document.getElementById("location")
+			 element.value = "Waterman"
+		 }
+	}
+</script>
+
 </html>
