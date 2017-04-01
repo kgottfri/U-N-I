@@ -25,6 +25,7 @@ public class Geoloc extends HttpServlet {
 	public static final BigDecimal[] FLETCHER_LIB = {new BigDecimal(44.4768642), new BigDecimal(-73.210435)};
 	public static final BigDecimal[] BAILEY_HOWE = {new BigDecimal(44.4772649),new BigDecimal(-73.1967532)};
 	public static final BigDecimal[] WATERMAN = {new BigDecimal(44.478283),new BigDecimal(-73.201157)};
+	
 	public static final String[] LOCATION_NAMES = 
 		{"DAVIS_CENTER", "MUDDY_WATERS", "FLETCHER LIBRARY", "BAILEY HOWE", "WATERMAN"};
 	public static final BigDecimal[][] LOCATIONS = {
@@ -64,6 +65,7 @@ public class Geoloc extends HttpServlet {
         			response.getWriter().print(LOCATION_NAMES[i]);
         	
         }
+        //response.getWriter().write(s);
         
         File file = new File("test.txt");
         FileWriter writer = new FileWriter(file);

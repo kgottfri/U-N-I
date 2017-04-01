@@ -25,6 +25,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.sql.Connection;
+import java.util.Iterator;
 
 @WebServlet("/heatmap")
 public class Heatmap extends HttpServlet {
@@ -47,6 +48,7 @@ public class Heatmap extends HttpServlet {
         BufferedImage image;
         image = ImageIO.read(f);
         
+        /*
         //*************************************For Testing Use*******************************
         Location testLib = new Location("Fletcher Library",660,415,Color.green);
         drawLocation(image,testLib);
@@ -56,36 +58,56 @@ public class Heatmap extends HttpServlet {
         
         Location testDavis = new Location("Davis Center",1300, 475,Color.yellow);
         drawLocation(image,testDavis);
+        
+        LinkedList<Location> locs = getLocations(image);
+        Iterator<Location> it = locs.iterator();
+        while(it.hasNext())
+        	addText(image,2000,50,it.next().name);
         //***********************************************************************************
+        */
+        LinkedList<Location> locs = getLocations();
+        Iterator<Location> it = locs.iterator();
+        while(it.hasNext())
+        	drawLocation(image,it.next());
         
         ImageIO.write(image, "jpeg", response.getOutputStream());
 	}
 	
 	public LinkedList<Location> getLocations()
 	{
-		String dbName = "WLIPPOLI_codefest";
+		String dbName = "locations";
 		
 		LinkedList<Location> locs = new LinkedList<Location>();
 		
 		Connection database = null;
 		Statement stmt;
-		String query = "select LOC_NAME, XCORD, YCORD from " + dbName + ".LOCATIONS";
+		String query = "select LOC_NAME, XCORD, YCORD from locations" ;
 		
 		try 
 		{
-			database = getDataSource().getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			database = DriverManager.getConnection("jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/ad_893f572ea7ffde6?user=bc3189df35a503&password=08ca16b8");
 			stmt = database.createStatement();
 			ResultSet results = stmt.executeQuery(query);
+			
 			while(results.next())
 			{
 				int lat = results.getInt("XCORD");
 				int lon = results.getInt("YCORD");
 				String name = results.getString("LOC_NAME");
 				
-				Location loc = new Location(name,lat,lon,getColor(dbName,stmt,name));
+				Location loc = new Location(name,lat,lon,null);
 				
 				locs.add(loc);
 			}
+			
+			Iterator<Location> it = locs.iterator();
+			while(it.hasNext())
+			{
+				Location l = it.next();
+				l.setColor(getColor(dbName,stmt,l.name));
+			}
+				
 		}
 		catch(Exception ex)
 		{
@@ -114,7 +136,7 @@ public class Heatmap extends HttpServlet {
 		
 		try
 		{
-			String query = "select SCORE, TIME from " + dbName + " d WHERE d.LOC_NAME = " + locName;
+			String query = "select SCORE, TIME from scores s WHERE s.LOC_NAME = \"" + locName + "\"";
 			ResultSet results = stmt.executeQuery(query);
 			while(results.next())
 			{
@@ -136,8 +158,18 @@ public class Heatmap extends HttpServlet {
 		Color color;
 		if(ave>0)
 		{
-			ave = ave/numScores-1;
-			color = new Color((int)(255-(5-ave)*51), (int)(255-ave*51), 0);
+			ave = ave/numScores;
+			
+			if(ave<1.8)
+				color = Color.green;
+			else if(ave<2.6)
+				color = new Color(127,255,0);
+			else if(ave<3.4)
+				color = Color.yellow;
+			else if(ave<4.2)
+				color = Color.orange;
+			else
+				color = Color.red;
 		}
 		else
 		{
@@ -181,11 +213,11 @@ public class Heatmap extends HttpServlet {
 	static public synchronized DataSource getDataSource(){
 		
 		if( _datasource == null ) {
-			JSONObject creds = VcapServicesHelper.getCredentials("compose-for-mysql", null);
-			String connectionString = "jdbc:" + creds.get("uri").toString();
+			//JSONObject creds = VcapServicesHelper.getCredentials("compose-for-mysql", null);
+			//String connectionString = "jdbc:" + creds.get("uri").toString();
 	        
 	        PoolProperties p = new PoolProperties();
-	        p.setUrl(connectionString);
+	        p.setUrl("jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/ad_893f572ea7ffde6?user=bc3189df35a503&password=08ca16b8");//connectionString);
 	        p.setDriverClassName( "com.mysql.cj.jdbc.Driver" );
 
 	        _datasource = new org.apache.tomcat.jdbc.pool.DataSource( p );

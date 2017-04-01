@@ -13,4 +13,9 @@ public class Location
 		name = n;
 		fill = f;
 	}
+	
+	public void setColor(Color f)
+	{
+		fill = f;
+	}
 }
