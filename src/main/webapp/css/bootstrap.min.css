@@ -19,3 +19,28 @@
     font-size: 17px;
 }
 /* >>>>>>> branch 'master' of https://github.com/danielberenberg/U-N-I.git */
+.formtitle{
+	padding-top: 80px;
+	font-weight: bold;
+	font-size: 2em;
+	text-align: center;
+}
+
+.form {
+	text-align: center;
+	margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+	
+}
+
+select {
+   opacity: 0.8;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 1px;
+   border-radius: 3px;
+   height: 34px;
+   }
