@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 
 import javafx.geometry.Point2D;
 
@@ -24,7 +25,8 @@ public class Geoloc extends HttpServlet {
 	public static final double[] FLETCHER_LIB = {44.4768642,-73.210435};
 	public static final double[] BAILEY_HOWE = {44.4772649,-73.1967532};
 	public static final double[] WATERMAN = {44.478283,-73.201157};
-	public static final double RADIUS = 0.000425383239;
+	public static final BigDecimal RADIUS = new BigDecimal(0.000425383239);
+	
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -40,10 +42,9 @@ public class Geoloc extends HttpServlet {
         File file = new File("test.txt");
         FileWriter writer = new FileWriter(file);
         PrintWriter w = new PrintWriter(writer);
-        
-        w.write("hey");
-        
+      
 	}
+
 
 	
 }
