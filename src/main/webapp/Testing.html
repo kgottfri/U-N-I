@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<body>
+<<<<<<< HEAD
+<body>  <p>x</p> </body>
+<script type="text/javascript" src="geolocation.js"></script>
+    <p>Click the button to get your coordinates.</p>
+=======
+<body onload="getLocation()">
 <p>Click the button to get your coordinates.</p>
+>>>>>>> branch 'master' of https://github.com/danielberenberg/U-N-I.git
 
 <button onclick="getLocation()">Try It</button>
 
 <p id="demo"></p>
 <p id = "demo2"></p>
 <form name="location" method="post" action="geoloc">
-	longitude: <input type = "text" name = "longitude"/> <br/>
-	latitude: <input type = "text" name = "latitude"/> <br/>
+	longitude: <input id = "longitude" type = "text" name = "longitude" value=""/> <br/>
+	latitude: <input id = "latitude" type = "text" name = "latitude" value=""/> <br/>
+	<input type = "submit" value = "go"/>
 </form>
 <script>
 var x = document.getElementById("demo");
@@ -22,10 +29,17 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;
+	document.getElementById("longitude").value = position.coords.longitude;
+	document.getElementById("latitude").value = position.coords.latitude;
+//    x.innerHTML = "Latitude: " + position.coords.latitude + 
+ //   "<br>Longitude: " + position.coords.longitude;
+    
 }
 </script>
+<<<<<<< HEAD
+	
+=======
 
 </body>
+>>>>>>> branch 'master' of https://github.com/danielberenberg/U-N-I.git
 </html>

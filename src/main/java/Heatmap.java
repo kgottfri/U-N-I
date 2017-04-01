@@ -48,18 +48,26 @@ public class Heatmap extends HttpServlet {
 	
 	public void drawLocation(BufferedImage image, Location loc)
 	{
-		colorSquare(image, loc.xCord, loc.yCord, 50, Color.black);
-		colorSquare(image, loc.xCord+5, loc.yCord+5, 40, loc.fill);
-		addText(image, loc.xCord, loc.yCord-5, loc.name);
+		int squareWidth = 50;
+		int coloredSquareWidth = 40;
+		
+		colorSquare(image, loc.xCord-squareWidth/2, loc.yCord-squareWidth/2, squareWidth, Color.black);
+		colorSquare(image, loc.xCord-coloredSquareWidth/2, loc.yCord-coloredSquareWidth/2, coloredSquareWidth, loc.fill);
+		addText(image, loc.xCord, loc.yCord-squareWidth/2, loc.name);
 	}
 	
 	public void addText(BufferedImage image,int xCord,int yCord,String text)
 	{
 		Graphics2D g = image.createGraphics();
 		
+		int width = g.getFontMetrics(font).stringWidth(text);
+		
 		g.setColor(Color.black);
+		g.fillRect(xCord-width/2-6, yCord-font.getSize()-6, width+12, font.getSize()+11);
+		
+		g.setColor(Color.white);
 		g.setFont(font);
-		g.drawString(text, xCord, yCord);
+		g.drawString(text, xCord-width/2, yCord-3);
 	}
 	
 	public void colorSquare(BufferedImage image,int xCord,int yCord,int width,Color color)
