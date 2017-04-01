@@ -25,7 +25,11 @@ public class Geoloc extends HttpServlet {
 	public static final BigDecimal[] FLETCHER_LIB = {new BigDecimal(44.4768642), new BigDecimal(-73.210435)};
 	public static final BigDecimal[] BAILEY_HOWE = {new BigDecimal(44.4772649),new BigDecimal(-73.1967532)};
 	public static final BigDecimal[] WATERMAN = {new BigDecimal(44.478283),new BigDecimal(-73.201157)};
-
+	public static final String[] LOCATION_NAMES = 
+		{"DAVIS_CENTER", "MUDDY_WATERS", "FLETCHER LIBRARY", "BAILEY HOWE", "WATERMAN"};
+	public static final BigDecimal[][] LOCATIONS = {
+			DAVIS_CENTER, MUDDY_WATERS, FLETCHER_LIB, BAILEY_HOWE, WATERMAN
+	};
 	//public static final BigDecimal RADIUS = new BigDecimal(0.000425383239);
 	
 	
@@ -54,18 +58,27 @@ public class Geoloc extends HttpServlet {
         
         userLong = new BigDecimal(userLong_);
         userLat = new BigDecimal(userLat_);
-        if (inRange(WATERMAN, response)){
-        	response.getWriter().print("You're at waterman!   ");
+        boolean[] hits = checkLocation(response);
+        for (int i = 0; i < hits.length; i++){
+        		if (hits[i])
+        			response.getWriter().print(LOCATION_NAMES[i]);
+        	
         }
-        else{
-        	response.getWriter().print("You're not at waterman!   ");
-        }
+        
         File file = new File("test.txt");
         FileWriter writer = new FileWriter(file);
         PrintWriter w = new PrintWriter(writer);
       
 	}
 	
+	public boolean[] checkLocation(HttpServletResponse response) throws IOException{
+		boolean[] closeLocations = new boolean[5];
+		for (int i = 0; i < 5; ++i){
+			closeLocations[i] = inRange(LOCATIONS[i], response);
+		}
+		return closeLocations;
+		
+	}
 	public boolean inRange(BigDecimal[] location, HttpServletResponse response) throws IOException{
 		BigDecimal lat_dif = location[0].subtract(userLat);
 		BigDecimal long_dif = location[1].subtract(userLong);
@@ -76,11 +89,17 @@ public class Geoloc extends HttpServlet {
 		BigDecimal sumOfDifs = lat_dif.add(long_dif);
 		
 		BigDecimal distance = bigSqrt(sumOfDifs);
+<<<<<<< Updated upstream
 
 		response.getWriter().print("Distance: " + distance + "   ");
 		
 		return (distance.compareTo(RADIUS) <= 0);
 
+=======
+		//response.getWriter().print("Distance: " + distance + "   ");
+		return (distance.compareTo(RADIUS) <= 0);
+		
+>>>>>>> Stashed changes
 		
 	}
 
