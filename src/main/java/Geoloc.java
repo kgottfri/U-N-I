@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,11 +22,13 @@ public class Geoloc extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
         response.setContentType("text/html");
-        response.getWriter().print("Lat = " + request.getParameter("latitude"));
-        response.getWriter().print("Long = " + request.getParameter("longitude"));
-        File file = new File("Hello1.txt");
+        //response.getWriter().print("Lat = " + request.getParameter("latitude"));
+        //response.getWriter().print("Long = " + request.getParameter("longitude"));
+        File file = new File("/Users/adambarson/Desktop/Codefest/test.txt");
         FileWriter writer = new FileWriter(file);
-        writer.write("hey");
+        PrintWriter w = new PrintWriter(writer);
+        
+        w.write("hey");
         
 	}
 
