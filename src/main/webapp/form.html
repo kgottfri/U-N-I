@@ -2,7 +2,7 @@
 <html>
 <head>
 
-<script type="text/javascript">
+<script type="text/javascript" src = "Geoloc.java">
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -15,12 +15,12 @@ function showPosition(position) {
     "<br>Longitude: " + position.coords.longitude; 
 }
 function setLocation(){
+	document.location.href='Geoloc.java'
 	 getLocation();
 	 var posx = -73.201157;
 	 var posy = 44.478283;
 	 if(posx == -73.201157 && posy == 44.478283){
-		 var element = document.getElementById("location")
-		 element.value = "Waterman"
+		 document.getElementById("location").value = "Waterman";
 	 }
 }
 
@@ -45,17 +45,22 @@ function setLocation(){
 	
 	
 	<div class = "form">
-
+	
+	<form name="location" method="post" action="geoloc">
+	location: <input id = "location" type = "text" name = "location value=""/>
+	<input type = "submit" value = "go"/>
+	</form>
+<!--  
 		<select name = "location">
 		
 			<option value = "Library">Library</option>
 			<option id = "Waterman" value = "Waterman">Waterman</option>
 			<option value = "Muddy Waters">Muddy Waters</option>
 			<option value = "Fish Bowl">Fish Bowl</option>
-			
+		
 		
 		</select>
-		
+-->			
 		<select name = "Rating">
 			<option>1</option>
 			<option>2</option>
