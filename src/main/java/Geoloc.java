@@ -78,7 +78,14 @@ public class Geoloc extends HttpServlet {
 		BigDecimal distance = bigSqrt(sumOfDifs);
 
 		response.getWriter().print("Distance: " + distance + "   ");
-		return true;
+		
+		if (distance.compareTo(RADIUS) <= 0){
+			// in the bounds!
+			return true;
+		}
+		
+		else{ return false; }
+		
 	}
 
 	private static BigDecimal sqrtNewtonRaphson  (BigDecimal c, BigDecimal xn, BigDecimal precision){
