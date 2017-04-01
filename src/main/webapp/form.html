@@ -2,7 +2,7 @@
 <html>
 <head>
 
-<script type="text/javascript" src = "Geoloc.java">
+<script type="text/javascript" >
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -14,13 +14,17 @@ function showPosition(position) {
     x.innerHTML = "Latitude: " + position.coords.latitude + 
     "<br>Longitude: " + position.coords.longitude; 
 }
+
 function setLocation(){
-	document.location.href='Geoloc.java'
-	 getLocation();
+	var toServer = myJSONObject.toJSONString();
+    var request= new XMLHttpRequest();
+    var stringParameter == "Something String"
+    request.open("POST", "http://localhost:7001/APToolbar/Main_servlet?stringParameter="+stringParameter , true);
+    request.send(toServer);
 	 var posx = -73.201157;
 	 var posy = 44.478283;
 	 if(posx == -73.201157 && posy == 44.478283){
-		 document.getElementById("location").value = "Waterman";
+		 document.getElementById("location").value = pos;
 	 }
 }
 
@@ -41,16 +45,6 @@ function setLocation(){
 
 	</head>	
 <body onload="setLocation()">
-		<ul>
-	   	<li><a class="active" href="index.html">Home</a></li>
-	 	<li><a href="feed.html">Feed</a></li>
-  		<li><a href="request.html">Request</a></li>
-  		<li><a href="links.html">Links</a></li>
-  		<li><a href="account.html">Sign Up!</a></li>
-  		<li><a href="Testing.html">Coordinates</a></li>
-  		<li><a href="form.html">Review a Location</a></li>
-
- 	 </ul>
 	<h1 class = "formtitle">Form</h1>
 	
 	
