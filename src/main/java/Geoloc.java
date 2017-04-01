@@ -79,12 +79,8 @@ public class Geoloc extends HttpServlet {
 
 		response.getWriter().print("Distance: " + distance + "   ");
 		
-		if (distance.compareTo(RADIUS) <= 0){
-			// in the bounds!
-			return true;
-		}
-		
-		else{ return false; }
+		return (distance.compareTo(RADIUS) <= 0);
+
 		
 	}
 
