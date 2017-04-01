@@ -1,4 +1,4 @@
-var x = document.getElementById("demo");
+
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -13,4 +13,14 @@ function getLatPosition(){
 function showPosition(position) {
     x.innerHTML = "Latitude: " + position.coords.latitude + 
     "<br>Longitude: " + position.coords.longitude; 
+}
+
+function setLocation(){
+	 getLocation();
+	 var posx = -73.201157;
+	 var posy = 44.478283;
+	 if(posx == -73.201157 && posy == 44.478283){
+		 var element = document.getElementById("location")
+		 element.value = "Waterman"
+	 }
 }

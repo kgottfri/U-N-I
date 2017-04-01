@@ -1,9 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<script type="text/javascript" src="geolocation.js">
+function setLocation(){
+	 getLocation();
+	 var posx = -73.201157;
+	 var posy = 44.478283;
+	 if(posx == -73.201157 && posy == 44.478283){
+		 var element = document.getElementById("location")
+		 element.value = "Waterman"
+	 }
+}
+</script>
+<body onload="setLocation()">
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> branch 'master' of https://github.com/danielberenberg/U-N-I.git
 <body>
+>>>>>>> branch 'master' of https://github.com/danielberenberg/U-N-I.git
 
 
+>>>>>>> origin/master
 <title>Form</title>
    
 
@@ -15,16 +36,25 @@
     <meta name="description" content="">
     <meta name="Liv Jensen">
    
-    <title>FORM</title>
 	<link rel = "stylesheet" type = "text/css" href = "./css/bootstrap.min.css">
 	
+	<script type = "text/javascript" scr = "geolocation.js">
+	
+		
+	
+	
+	
+	</script>
+<body onload = "getLocation()">	
 	<h1 class = "formtitle">Form</h1>
 	
 	
 	<div class = "form">
 
 		<select name = "location">
+		
 			<option value = "Library">Library</option>
+			<option id = "Waterman" value = "Waterman">Waterman</option>
 			<option value = "Muddy Waters">Muddy Waters</option>
 			<option value = "Fish Bowl">Fish Bowl</option>
 			
@@ -45,4 +75,6 @@
 
 
 </body>
+
+
 </html>
