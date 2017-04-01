@@ -3,37 +3,26 @@
 <head>
 
 <script type="text/javascript" >
+
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
+    } else { 
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
+
 function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude; 
+	document.getElementById("location").value = position.coords.latitude;
+	document.getElementById("latitude").value = position.coords.latitude;
+//    x.innerHTML = "Latitude: " + position.coords.latitude + 
+ //   "<br>Longitude: " + position.coords.longitude;
+    
 }
-function display()
-{
-  data.transformNodeToObject(ss.XMLDocument, resultTree.XMLDocument);
-  document.write(resultTree.xml);
-}
-function setLocation(){
-	data.async = false;
-	data.load("../servlet/SQLResult");
-	ss.async = false;
 
 
-	 var posx = -73.201157;
-	 var posy = 44.478283;
-	 if(posx == -73.201157 && posy == 44.478283){
-		 document.getElementById("location").value = pos;
-	 }
-}
 
 </script>
-
 <title>Form</title>
    
 
@@ -48,7 +37,7 @@ function setLocation(){
 	<link rel = "stylesheet" type = "text/css" href = "./css/bootstrap.min.css">
 
 	</head>	
-<body onload="setLocation()">
+<body onload="getLocation()">
 	<h1 class = "formtitle">Form</h1>
 	
 	
