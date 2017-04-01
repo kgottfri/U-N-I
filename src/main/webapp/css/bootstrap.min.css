@@ -8,6 +8,7 @@ body {
     background-color: #EDE9DD;
 }
 ul {
+	width: auto;
     list-style-type: none;
     margin: 0;
     padding: 0;
