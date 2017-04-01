@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="geolocation.js">
+	
+	function setLocation(){
+		 getLocation();
+		 if(position.coords.longitude == -73.201157 && position.coords.latitude == 44.478283){
+			 var element = document.getElementById("location")
+			 element.value = "Waterman"
+		 }
+	}
+</script>
 <body onload="setLocation()">
 <title>Form</title>
    
@@ -44,15 +54,6 @@
 
 
 </body>
-<script type="text/javascript" src="geolocation.js">
-	
-	function setLocation(){
-		 getLocation();
-		 if(position.coords.longitude == -73.201157 && position.coords.latitude == 44.478283){
-			 var element = document.getElementById("location")
-			 element.value = "Waterman"
-		 }
-	}
-</script>
+
 
 </html>
