@@ -5,24 +5,8 @@
 
 
 <title>Form</title>
-    <script language="JavaScript">
-    // Define a function for later use
-    function print_todays_date( ) {
-        var d = new Date( );                  // Get today's date and time
-        document.write(d.toLocaleString( ));  // Insert it into the document
-    }
-    </script>
+   
 
-The date and time are:<br>
-<script language="JavaScript">
-	function rate(rating) {
-	    document.rating.stars.value = rating;
-	    document.rating.submit();
-	    return true;
- 
-}
-
-</script>
 
     <meta charset="utf-8">
     
@@ -32,20 +16,11 @@ The date and time are:<br>
     <meta name="Liv Jensen">
    
     <title>FORM</title>
-	<link rel = "stylesheet" type = "text/css" href = "style.css">
+	<link rel = "stylesheet" type = "text/css" href = "./css/bootstrap.min.css">
 	
 	<h1 class = "formtitle">Form</h1>
 	
-	<div id="rating">
-	  <form name="rating" method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
-	 	<p><img src="../images/stars/star.gif" alt="1 Star" onclick="rate(1);" />
-	 	<img src="../images/stars/star.gif" alt="2 Stars" onclick="rate(2);" />
-	 	<img src="../images/stars/star.gif" alt="3 Stars" onclick="rate(3);" />
-	 	<img src="../images/stars/star.gif" alt="4 Stars" onclick="rate(4);" />
-	 	<img src="../images/stars/star.gif" alt="5 Stars" onclick="rate(5);" />
-		<input type="hidden" name="stars" value="0" />
-	    <input type="hidden" name="id" value="<?php echo $id; ?>" /></p> 	
- 	  </form>
+	
 	<div class = "form">
 
 		<select name = "location">
@@ -62,6 +37,7 @@ The date and time are:<br>
 			<option>3</option>
 			<option>4</option>
 			<option>5</option>
+			<option>6</option>
 			
 		
 		</select>

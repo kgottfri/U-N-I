@@ -2,8 +2,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import javafx.geometry.Point2D;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,16 +20,23 @@ public class Geoloc extends HttpServlet {
 	
 	public static final double ACCEPTABLE_DISTANCE = 0.05;
 	// lat & long
-	public static final double[] DAVIS_CENTER = {44.4757914,-73.1964633};
-	public static final double[] MUDDY_WATERS = {44.4761728,-73.2119901};
-	public static final double[] FLETCHER_LIB = {44.4768642,-73.210435};
-	public static final double[] BAILEY_HOWE = {44.4772649,-73.1967532};
-	public static final double[] WATERMAN = {44.478283,-73.201157};
-	public static final double RADIUS = 0.000425383239;
+	public static final BigDecimal[] DAVIS_CENTER = {new BigDecimal(44.4757914),new BigDecimal(-73.1964633)};
+	public static final BigDecimal[] MUDDY_WATERS = {new BigDecimal(44.4761728),new BigDecimal(-73.2119901)};
+	public static final BigDecimal[] FLETCHER_LIB = {new BigDecimal(44.4768642), new BigDecimal(-73.210435)};
+	public static final BigDecimal[] BAILEY_HOWE = {new BigDecimal(44.4772649),new BigDecimal(-73.1967532)};
+	public static final BigDecimal[] WATERMAN = {new BigDecimal(44.478283),new BigDecimal(-73.201157)};
+
+	//public static final BigDecimal RADIUS = new BigDecimal(0.000425383239);
 	
-	private double userLat;
-	private double userLong;
 	
+	public static final BigDecimal RADIUS = new BigDecimal(0.000425383239);
+	
+	private BigDecimal userLat;
+	private BigDecimal userLong;
+	
+	private static final BigDecimal SQRT_DIG = new BigDecimal(150);
+	private static final BigDecimal SQRT_PRE = new BigDecimal(10).pow(SQRT_DIG.intValue());
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -42,8 +49,11 @@ public class Geoloc extends HttpServlet {
         response.getWriter().print("Lat = " + request.getParameter("latitude"));
         response.getWriter().print("Long = " + request.getParameter("longitude"));
         
-        userLat = Double.parseDouble(request.getParameter("latitude"));
-        userLong = Double.parseDouble(request.getParameter("longitude"));
+        double userLat_ = Double.parseDouble(request.getParameter("latitude"));
+        double userLong_ = Double.parseDouble(request.getParameter("longitude"));
+        
+        userLong = new BigDecimal(userLong_);
+        userLat = new BigDecimal(userLat_);
         if (inRange(WATERMAN, response)){
         	response.getWriter().print("You're at waterman!   ");
         }
@@ -53,17 +63,46 @@ public class Geoloc extends HttpServlet {
         File file = new File("test.txt");
         FileWriter writer = new FileWriter(file);
         PrintWriter w = new PrintWriter(writer);
-        
-        w.write("hey");
-        
+      
 	}
 	
-	public boolean inRange(double [] location, HttpServletResponse response) throws IOException{
-		double lat_dif = location[0] - userLat;
-		double long_dif = location[1] - userLong;
-		double distance = Math.sqrt(Math.pow(lat_dif, 2) + (Math.pow(long_dif, 2)));
+	public boolean inRange(BigDecimal[] location, HttpServletResponse response) throws IOException{
+		BigDecimal lat_dif = location[0].subtract(userLat);
+		BigDecimal long_dif = location[1].subtract(userLong);
+		
+		lat_dif = lat_dif.multiply(lat_dif);
+		long_dif = long_dif.multiply(long_dif);
+		
+		BigDecimal sumOfDifs = lat_dif.add(long_dif);
+		
+		BigDecimal distance = bigSqrt(sumOfDifs);
+
 		response.getWriter().print("Distance: " + distance + "   ");
-		return (distance < RADIUS);
+		return true;
+	}
+
+	private static BigDecimal sqrtNewtonRaphson  (BigDecimal c, BigDecimal xn, BigDecimal precision){
+	    BigDecimal fx = xn.pow(2).add(c.negate());
+	    BigDecimal fpx = xn.multiply(new BigDecimal(2));
+	    BigDecimal xn1 = fx.divide(fpx,2*SQRT_DIG.intValue(),RoundingMode.HALF_DOWN);
+	    xn1 = xn.add(xn1.negate());
+	    BigDecimal currentSquare = xn1.pow(2);
+	    BigDecimal currentPrecision = currentSquare.subtract(c);
+	    currentPrecision = currentPrecision.abs();
+	    if (currentPrecision.compareTo(precision) <= -1){
+	        return xn1;
+	    }
+	    return sqrtNewtonRaphson(c, xn1, precision);
+	}
+
+	/**
+	 * Uses Newton Raphson to compute the square root of a BigDecimal.
+	 * 
+	 * @author Luciano Culacciatti 
+	 * @url http://www.codeproject.com/Tips/257031/Implementing-SqrtRoot-in-BigDecimal
+	 */
+	public static BigDecimal bigSqrt(BigDecimal c){
+	    return sqrtNewtonRaphson(c,new BigDecimal(1),new BigDecimal(1).divide(SQRT_PRE));
 	}
 
 	
