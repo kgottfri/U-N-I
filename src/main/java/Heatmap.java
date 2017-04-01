@@ -158,7 +158,7 @@ public class Heatmap extends HttpServlet {
 		Color color;
 		if(ave>0)
 		{
-			ave = ave/numScores-1;
+			ave = ave/numScores;
 			
 			if(ave<1.8)
 				color = Color.green;
