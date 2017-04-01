@@ -60,8 +60,9 @@ public class Geoloc extends HttpServlet {
         userLat = new BigDecimal(userLat_);
         boolean[] hits = checkLocation(response);
         for (int i = 0; i < hits.length; i++){
-        		if (hits[i])
+        		if (hits[i]){
         			response.getWriter().print(LOCATION_NAMES[i]);
+        		}
         	
         }
         
