@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<body>  <p>x</p> </body>
+<body onload="popup('form.html', 'ad')">  <p>x</p> </body>
 <script type="text/javascript" src="geolocation.js"></script>
     <p>Click the button to get your coordinates.</p>
     
 <body onload="getLocation()">
 <p>Click the button to get your coordinates.</p>
 <button onclick="getLocation()">Try It</button>
+<SCRIPT TYPE="text/javascript"> function popup(mylink, windowname) { if (! window.focus)return true; var href; if (typeof(mylink) == 'string') href=mylink; else href=mylink.href; window.open(href, windowname, 'width=400,height=200,scrollbars=yes'); return false; } </SCRIPT>
+
+
+
 
 <p id="demo"></p>
 <p id = "demo2"></p>

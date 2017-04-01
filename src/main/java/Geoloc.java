@@ -53,7 +53,9 @@ public class Geoloc extends HttpServlet {
         response.setContentType("text/html");
         response.getWriter().print("Lat = " + request.getParameter("latitude"));
         response.getWriter().print("Long = " + request.getParameter("longitude"));
-        
+        PrintWriter writer = response.getWriter();
+        document.getElementById("location").value = request.getParamater;
+        writer.println(htmlRespone);
         double userLat_ = Double.parseDouble(request.getParameter("latitude"));
         double userLong_ = Double.parseDouble(request.getParameter("longitude"));
         
@@ -63,6 +65,7 @@ public class Geoloc extends HttpServlet {
         for (int i = 0; i < hits.length; i++){
         		if (hits[i])
         			response.getWriter().print(LOCATION_NAMES[i]);
+        			response.setAttribute(LOCATION_NAMES[i]);
         	
         }
         
