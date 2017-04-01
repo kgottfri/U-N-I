@@ -10,6 +10,8 @@
   		<li><a href="form.html">Review a Location</a></li>
   		<li><a href="Testing.html">Coordinates</a></li>
   </ul>
+  
+
 <script type="text/javascript">
 
 
@@ -28,7 +30,9 @@ function showPosition(position) {
     
 }
 
-
+function print(){
+	x.innerHTML = "Processing your request.";
+}
 
 </script>
 <title>Form</title>
@@ -51,7 +55,7 @@ function showPosition(position) {
 	
 	<div class = "form">
 	
-	<form name="location" method="post" action="geoloc">
+	<form name="location" method="post" action="index.html">
 	location: <input id = "location" type = "text" name = "location value=""/>
 	<input type = "submit" value = "go"/>
 	</form>
