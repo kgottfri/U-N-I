@@ -8,6 +8,7 @@ body {
     background-color: #EDE9DD;
 }
 ul {
+	width: auto;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -112,8 +113,3 @@ img {
     padding: 10px;
     border-radius: 3px;
 }
-
-/* >>>>>>> branch 'master' of https://github.com/danielberenberg/U-N-I.git */
-=======
->>>>>>> branch 'master' of https://github.com/danielberenberg/U-N-I.git
->>>>>>> branch 'master' of https://github.com/danielberenberg/U-N-I.git
