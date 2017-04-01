@@ -48,6 +48,7 @@ public class Heatmap extends HttpServlet {
         BufferedImage image;
         image = ImageIO.read(f);
         
+        /*
         //*************************************For Testing Use*******************************
         Location testLib = new Location("Fletcher Library",660,415,Color.green);
         drawLocation(image,testLib);
@@ -63,11 +64,16 @@ public class Heatmap extends HttpServlet {
         while(it.hasNext())
         	addText(image,2000,50,it.next().name);
         //***********************************************************************************
+        */
+        LinkedList<Location> locs = getLocations();
+        Iterator<Location> it = locs.iterator();
+        while(it.hasNext())
+        	drawLocation(image,it.next());
         
         ImageIO.write(image, "jpeg", response.getOutputStream());
 	}
 	
-	public LinkedList<Location> getLocations(BufferedImage image)
+	public LinkedList<Location> getLocations()
 	{
 		String dbName = "locations";
 		
@@ -83,16 +89,25 @@ public class Heatmap extends HttpServlet {
 			database = DriverManager.getConnection("jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/ad_893f572ea7ffde6?user=bc3189df35a503&password=08ca16b8");
 			stmt = database.createStatement();
 			ResultSet results = stmt.executeQuery(query);
+			
 			while(results.next())
 			{
 				int lat = results.getInt("XCORD");
 				int lon = results.getInt("YCORD");
 				String name = results.getString("LOC_NAME");
 				
-				Location loc = new Location(name,lat,lon,getColor(dbName,stmt,name));
+				Location loc = new Location(name,lat,lon,null);
 				
 				locs.add(loc);
 			}
+			
+			Iterator<Location> it = locs.iterator();
+			while(it.hasNext())
+			{
+				Location l = it.next();
+				l.setColor(getColor(dbName,stmt,l.name));
+			}
+				
 		}
 		catch(Exception ex)
 		{
@@ -121,7 +136,7 @@ public class Heatmap extends HttpServlet {
 		
 		try
 		{
-			String query = "select SCORE, TIME from scores s WHERE d.LOC_NAME = " + locName;
+			String query = "select SCORE, TIME from scores s WHERE s.LOC_NAME = \"" + locName + "\"";
 			ResultSet results = stmt.executeQuery(query);
 			while(results.next())
 			{
@@ -143,8 +158,18 @@ public class Heatmap extends HttpServlet {
 		Color color;
 		if(ave>0)
 		{
-			ave = ave/numScores-1;
-			color = new Color((int)(255-(5-ave)*51), (int)(255-ave*51), 0);
+			ave = ave/numScores;
+			
+			if(ave<1.8)
+				color = Color.green;
+			else if(ave<2.6)
+				color = new Color(127,255,0);
+			else if(ave<3.4)
+				color = Color.yellow;
+			else if(ave<4.2)
+				color = Color.orange;
+			else
+				color = Color.red;
 		}
 		else
 		{

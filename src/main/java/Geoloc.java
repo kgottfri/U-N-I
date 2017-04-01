@@ -68,6 +68,7 @@ public class Geoloc extends HttpServlet {
         		}
         	
         }
+        //response.getWriter().write(s);
         
         File file = new File("test.txt");
         FileWriter writer = new FileWriter(file);
