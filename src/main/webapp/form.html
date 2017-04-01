@@ -11,6 +11,19 @@
   		<li><a href="Testing.html">Coordinates</a></li>
   </ul>
 <script type="text/javascript">
+
+<script type="text/javascript" src="geolocation.js">
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude; 
+}
 function setLocation(){
 	 getLocation();
 	 var posx = -73.201157;
@@ -35,14 +48,7 @@ function setLocation(){
     <meta name="Liv Jensen">
    
 	<link rel = "stylesheet" type = "text/css" href = "./css/bootstrap.min.css">
-	
-	<script type = "text/javascript" scr = "geolocation.js">
-	
-		
-	
-	
 
-	</script>
 	</head>	
 <body onload="setLocation()">
 	<h1 class = "formtitle">Form</h1>
