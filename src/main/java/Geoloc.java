@@ -18,10 +18,9 @@ public class Geoloc extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+        response.setContentType("text/html");
+        response.getWriter().print("Lat = " + request.getParameter("latitude"));
 	}
-	
-	
 
 	
 }
