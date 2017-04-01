@@ -8,6 +8,7 @@ body {
     background-color: #EDE9DD;
 }
 ul {
+	padding-top: 10px;
 	width: auto;
     list-style-type: none;
     margin: 0;
@@ -16,7 +17,9 @@ ul {
     background-color: #333;
 }
 
+
 li {
+	
     float: left;
 }
 
@@ -86,6 +89,7 @@ li a:hover {
 }
 
 .active {
+	font-size: 23px;
     background-color: #085568;
 }
 
