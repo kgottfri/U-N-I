@@ -89,17 +89,9 @@ public class Geoloc extends HttpServlet {
 		BigDecimal sumOfDifs = lat_dif.add(long_dif);
 		
 		BigDecimal distance = bigSqrt(sumOfDifs);
-<<<<<<< Updated upstream
-
-		response.getWriter().print("Distance: " + distance + "   ");
-		
-		return (distance.compareTo(RADIUS) <= 0);
-
-=======
 		//response.getWriter().print("Distance: " + distance + "   ");
 		return (distance.compareTo(RADIUS) <= 0);
 		
->>>>>>> Stashed changes
 		
 	}
 
