@@ -25,6 +25,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.sql.Connection;
+import java.util.Iterator;
 
 @WebServlet("/heatmap")
 public class Heatmap extends HttpServlet {
@@ -56,24 +57,30 @@ public class Heatmap extends HttpServlet {
         
         Location testDavis = new Location("Davis Center",1300, 475,Color.yellow);
         drawLocation(image,testDavis);
+        
+        LinkedList<Location> locs = getLocations(image);
+        Iterator<Location> it = locs.iterator();
+        while(it.hasNext())
+        	addText(image,2000,50,it.next().name);
         //***********************************************************************************
         
         ImageIO.write(image, "jpeg", response.getOutputStream());
 	}
 	
-	public LinkedList<Location> getLocations()
+	public LinkedList<Location> getLocations(BufferedImage image)
 	{
-		String dbName = "WLIPPOLI_codefest";
+		String dbName = "locations";
 		
 		LinkedList<Location> locs = new LinkedList<Location>();
 		
 		Connection database = null;
 		Statement stmt;
-		String query = "select LOC_NAME, XCORD, YCORD from " + dbName + ".LOCATIONS";
+		String query = "select LOC_NAME, XCORD, YCORD from locations" ;
 		
 		try 
 		{
-			database = getDataSource().getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			database = DriverManager.getConnection("jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/ad_893f572ea7ffde6?user=bc3189df35a503&password=08ca16b8");
 			stmt = database.createStatement();
 			ResultSet results = stmt.executeQuery(query);
 			while(results.next())
@@ -114,7 +121,7 @@ public class Heatmap extends HttpServlet {
 		
 		try
 		{
-			String query = "select SCORE, TIME from " + dbName + " d WHERE d.LOC_NAME = " + locName;
+			String query = "select SCORE, TIME from scores s WHERE d.LOC_NAME = " + locName;
 			ResultSet results = stmt.executeQuery(query);
 			while(results.next())
 			{
@@ -181,11 +188,11 @@ public class Heatmap extends HttpServlet {
 	static public synchronized DataSource getDataSource(){
 		
 		if( _datasource == null ) {
-			JSONObject creds = VcapServicesHelper.getCredentials("compose-for-mysql", null);
-			String connectionString = "jdbc:" + creds.get("uri").toString();
+			//JSONObject creds = VcapServicesHelper.getCredentials("compose-for-mysql", null);
+			//String connectionString = "jdbc:" + creds.get("uri").toString();
 	        
 	        PoolProperties p = new PoolProperties();
-	        p.setUrl(connectionString);
+	        p.setUrl("jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/ad_893f572ea7ffde6?user=bc3189df35a503&password=08ca16b8");//connectionString);
 	        p.setDriverClassName( "com.mysql.cj.jdbc.Driver" );
 
 	        _datasource = new org.apache.tomcat.jdbc.pool.DataSource( p );

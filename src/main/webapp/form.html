@@ -2,7 +2,23 @@
 <html>
 <head>
 
+<<<<<<< HEAD
 <script type="text/javascript" >
+=======
+
+
+<script type="text/javascript" src="geolocation.js">
+
+xhrGet("geoloc", function(responseText){
+	// add to document
+	var mytitle = document.getElementById('loc');
+	mytitle.innerHTML = responseText;
+
+}, function(err){
+	console.log(err);
+});
+
+>>>>>>> origin/master
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -45,10 +61,24 @@ function setLocation(){
 
 	</head>	
 <body onload="setLocation()">
+<<<<<<< HEAD
+=======
+		<ul>
+	   	<li><a class="active" href="index.html">Home</a></li>
+	 	<li><a href="feed.html">Feed</a></li>
+  		<li><a href="request.html">Request</a></li>
+  		<li><a href="links.html">Links</a></li>
+  		<li><a href="account.html">Sign Up!</a></li>
+  		<li><a href="Testing.html">Coordinates</a></li>
+  		<li><a href="form.html">Review a Location</a></li>
+	
+ 	 </ul>
+>>>>>>> origin/master
 	<h1 class = "formtitle">Form</h1>
 	
 	
 	<div class = "form">
+<<<<<<< HEAD
 	
 	<form name="location" method="post" action="geoloc">
 	location: <input id = "location" type = "text" name = "location value=""/>
@@ -56,6 +86,10 @@ function setLocation(){
 	</form>
 <!--  
 		<select name = "location">
+=======
+
+		<select id = "loc" name = "location">
+>>>>>>> origin/master
 		
 			<option value = "Library">Library</option>
 			<option id = "Waterman" value = "Waterman">Waterman</option>
