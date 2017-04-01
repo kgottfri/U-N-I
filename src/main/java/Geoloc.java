@@ -18,11 +18,11 @@ public class Geoloc extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
         response.setContentType("text/html");
         response.getWriter().print("Lat = " + request.getParameter("latitude"));
-        response.getWriter().print("Long = " + request.getParameter("long"));
+        response.getWriter().print("Long = " + request.getParameter("longitude"));
         File file = new File("Hello1.txt");
         FileWriter writer = new FileWriter(file);
         writer.write("hey");
