@@ -32,6 +32,12 @@ h1 {
 	font-size: 2em;
 }
 
+.formtitle{
+	padding-top: 80px;
+	font-weight: bold;
+	font-size: 2em;
+	text-align: center;
+}
 .leftHalf {
 	float: left;
 	background-color: #26343f;
@@ -84,14 +90,26 @@ th, td {
 
 pre {
 	padding: 0;
+	
 	margin: 0;
 }
 
 .form {
+	text-align: center;
 	margin: auto;
     width: 50%;
     border: 3px solid green;
     padding: 10px;
 	
 }
+
+select {
+   opacity: 0.8;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 1px;
+   border-radius: 3px;
+   height: 34px;
+   }
 
