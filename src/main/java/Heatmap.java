@@ -35,6 +35,12 @@ public class Heatmap extends HttpServlet {
         //*************************************For Testing Use*******************************
         Location testLib = new Location("Fletcher Library",660,415,Color.green);
         drawLocation(image,testLib);
+        
+        Location testUVMLib = new Location("Biley-Howl Library",1245,345,Color.red);
+        drawLocation(image,testUVMLib);
+        
+        Location testDavis = new Location("Davis Center",1300, 475,Color.yellow);
+        drawLocation(image,testDavis);
         //***********************************************************************************
         
         ImageIO.write(image, "jpeg", response.getOutputStream());
