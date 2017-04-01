@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<ul>
+ <ul>
  	<li><a class="active" href="index.html">Home</a></li>
 	 	<li><a href="feed.html">Feed</a></li>
-  		<li><a href="http://uvm.libcal.com/rooms.php?i=2001">Request A Study Room!</a></li>
+  		<li><a href="request.html">Request</a></li>
+  		<li><a href="links.html">Links</a></li>
   		<li><a href="account.html">Sign Up!</a></li>
   		<li><a href="form.html">Review a Location</a></li>
+  		<li><a href="Testing.html">Coordinates</a></li>
   </ul>
 <script type="text/javascript">
 
 <script type="text/javascript" >
 
-xhrGet("geoloc", function(responseText){
+	xhrGet("geoloc", function(responseText){
 	// add to document
 	var mytitle = document.getElementById('loc');
 	mytitle.innerHTML = responseText;
@@ -21,31 +23,22 @@ xhrGet("geoloc", function(responseText){
 	console.log(err);
 });
 
->>>>>>> origin/master
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
+    } else { 
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
+
 function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude; 
+	document.getElementById("location").value = 'Waterman'
+//    x.innerHTML = "Latitude: " + position.coords.latitude + 
+ //   "<br>Longitude: " + position.coords.longitude;
+    
 }
 
-function setLocation(){
-	var toServer = myJSONObject.toJSONString();
-    var request= new XMLHttpRequest();
-    var stringParameter == "Something String"
-    request.open("POST", "http://localhost:7001/APToolbar/Main_servlet?stringParameter="+stringParameter , true);
-    request.send(toServer);
-	 var posx = -73.201157;
-	 var posy = 44.478283;
-	 if(posx == -73.201157 && posy == 44.478283){
-		 document.getElementById("location").value = pos;
-	 }
-}
+
 
 </script>
 
@@ -63,7 +56,7 @@ function setLocation(){
 	<link rel = "stylesheet" type = "text/css" href = "./css/bootstrap.min.css">
 
 	</head>	
-<body onload="setLocation()">
+<body onload="getLocation()">
 	<h1 class = "formtitle">Form</h1>
 	
 	
@@ -75,10 +68,6 @@ function setLocation(){
 	</form>
 <!--  
 		<select name = "location">
-=======
-
-		<select id = "loc" name = "location">
->>>>>>> origin/master
 		
 			<option value = "Library">Library</option>
 			<option id = "Waterman" value = "Waterman">Waterman</option>
@@ -100,7 +89,7 @@ function setLocation(){
 		</select>
 	</div>
 
-	<script type="text/javascript" src="run_name.js"></script>
+
 </body>
 
 

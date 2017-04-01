@@ -25,7 +25,6 @@ public class Geoloc extends HttpServlet {
 	public static final BigDecimal[] FLETCHER_LIB = {new BigDecimal(44.4768642), new BigDecimal(-73.210435)};
 	public static final BigDecimal[] BAILEY_HOWE = {new BigDecimal(44.4772649),new BigDecimal(-73.1967532)};
 	public static final BigDecimal[] WATERMAN = {new BigDecimal(44.478283),new BigDecimal(-73.201157)};
-	
 	public static final String[] LOCATION_NAMES = 
 		{"DAVIS_CENTER", "MUDDY_WATERS", "FLETCHER LIBRARY", "BAILEY HOWE", "WATERMAN"};
 	public static final BigDecimal[][] LOCATIONS = {
@@ -46,6 +45,9 @@ public class Geoloc extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response){
+		
+	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -61,8 +63,9 @@ public class Geoloc extends HttpServlet {
         userLat = new BigDecimal(userLat_);
         boolean[] hits = checkLocation(response);
         for (int i = 0; i < hits.length; i++){
-        		if (hits[i])
+        		if (hits[i]){
         			response.getWriter().print(LOCATION_NAMES[i]);
+        		}
         	
         }
         //response.getWriter().write(s);
@@ -114,6 +117,7 @@ public class Geoloc extends HttpServlet {
 	/**
 	 * Uses Newton Raphson to compute the square root of a BigDecimal.
 	 * 
+	 * shhhh nothing here
 	 * @author Luciano Culacciatti 
 	 * @url http://www.codeproject.com/Tips/257031/Implementing-SqrtRoot-in-BigDecimal
 	 */
