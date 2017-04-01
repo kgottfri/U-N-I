@@ -3,7 +3,17 @@
 <head>
 <<<<<<< HEAD
 <<<<<<< HEAD
-<script type="text/javascript" src="geolocation.js"></script>
+<script type="text/javascript" src="geolocation.js">
+function setLocation(){
+	 getLocation();
+	 var posx = -73.201157;
+	 var posy = 44.478283;
+	 if(posx == -73.201157 && posy == 44.478283){
+		 var element = document.getElementById("location")
+		 element.value = "Waterman"
+	 }
+}
+</script>
 <body onload="setLocation()">
 =======
 =======
